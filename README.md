@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center" style="background-color:black">
   <img src="https://lightgoldenrodyellow-spoonbill-684387.hostingersite.com/images/logo-lx.png" alt="Luxury Elite Logo" width="320">
 </p>
 
