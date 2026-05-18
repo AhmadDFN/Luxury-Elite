@@ -14,15 +14,30 @@ class PlayerController extends Controller
     public function index()
     {
         $players = PlayerProfile::query()
+
+            ->select('player_profiles.*')
+
+            ->join('users', 'users.id', '=', 'player_profiles.user_id')
+
+            ->join(
+                'division_members',
+                'division_members.user_id',
+                '=',
+                'users.id'
+            )
+
             ->with([
                 'user',
                 'user.divisionMemberships.role',
                 'user.divisionMemberships.division',
                 'gameRoles',
             ])
-            ->latest()
-            ->get();
 
+            ->orderBy('division_members.role_id', 'asc')
+
+            ->latest('player_profiles.created_at')
+
+            ->get();
         return Inertia::render('dashboard/players/Index', [
             'players' => $players,
         ]);
