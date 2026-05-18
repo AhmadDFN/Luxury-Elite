@@ -11,10 +11,14 @@ class VehicleSpecializationsSeeder extends Seeder
     public function run(): void
     {
         $vehicles = [
-            'Tank',
-            'APC',
+            'MBT',
+            'LT',
             'Helicopter',
             'Jet',
+            'LAV-G1',
+            'LAV-AA',
+            'FSV',
+            'Amphibi',
         ];
 
         foreach ($vehicles as $vehicle) {

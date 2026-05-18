@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use App\Models\DivisionMember;
+use App\Models\Division;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
@@ -32,14 +34,60 @@ class User extends Authenticatable
         ];
     }
 
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    public function hasRole($role): bool
+    {
+        return $this->divisionMemberships()
+            ->whereHas('role', function ($query) use ($role) {
+                $query->where('slug', $role);
+            })
+            ->exists();
+    }
+
+    public function isOwner(): bool
+    {
+        return $this->hasRole('owner');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function isCoach(): bool
+    {
+        return $this->hasRole('coach');
+    }
+
+    public function isCaptain(): bool
+    {
+        return $this->hasRole('captain');
+    }
+
+    public function isPlayer(): bool
+    {
+        return $this->hasRole('player');
+    }
+
     public function divisions()
     {
-        return $this->belongsToMany(Division::class, 'division_members')
-            ->withPivot([
-                'role_id',
-                'membership_status',
-                'joined_at'
-            ])
-            ->withTimestamps();
+        return $this->belongsToMany(
+            Division::class,
+            'division_members'
+        )->withPivot([
+            'role_id',
+            'membership_status',
+            'joined_at'
+        ])->withTimestamps();
+    }
+
+    public function divisionMemberships()
+    {
+        return $this->hasMany(DivisionMember::class);
     }
 }

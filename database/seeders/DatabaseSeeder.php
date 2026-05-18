@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\DummyPlayerSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,7 @@ class DatabaseSeeder extends Seeder
             GameRolesSeeder::class,
             VehicleSpecializationsSeeder::class,
             AdminUserSeeder::class,
+            DummyPlayerSeeder::class,
         ]);
     }
 }
