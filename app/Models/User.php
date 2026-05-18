@@ -31,4 +31,15 @@ class User extends Authenticatable
             'two_factor_confirmed_at' => 'datetime',
         ];
     }
+
+    public function divisions()
+    {
+        return $this->belongsToMany(Division::class, 'division_members')
+            ->withPivot([
+                'role_id',
+                'membership_status',
+                'joined_at'
+            ])
+            ->withTimestamps();
+    }
 }
