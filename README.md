@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="Luxury Elite Logo" width="320">
+  <img src="https://lightgoldenrodyellow-spoonbill-684387.hostingersite.com/images/logo-lx.png" alt="Luxury Elite Logo" width="320">
 </p>
 
 <h1 align="center">Luxury Elite</h1>
