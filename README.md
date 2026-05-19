@@ -48,12 +48,12 @@ Currently optimized for **Delta Force**, but architected from the ground up to s
 
 ## 🛠️ Installation & Setup
 
-Ensure you have **PHP >= 8.2**, **Composer**, and **Node.js** installed on your local machine.
+Ensure you have **PHP >= 8.3**, **Composer**, and **Node.js** installed on your local machine.
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/username/luxury-elite-platform.git](https://github.com/username/luxury-elite-platform.git)
-cd luxury-elite-platform
+git clone (link)
+cd luxury-elite
 2. Backend Setup
 Bash
 # Install PHP dependencies
