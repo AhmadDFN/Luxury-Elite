@@ -266,7 +266,7 @@
                     {#if dropdownOpen}
                         <div
                             transition:fly={{ y: 10, duration: 200 }}
-                            class="absolute right-0 mt-3 w-64 bg-[#0a101f]/95 backdrop-blur-xl rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/10 z-50 overflow-hidden"
+                            class="absolute right-0 mt-3 w-64 bg-[#0a101f]/95 backdrop-blur-xl rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/10 z-40 overflow-hidden"
                         >
                             <div
                                 class="px-5 py-4 border-b border-white/5 bg-gradient-to-br from-white/5 to-transparent"

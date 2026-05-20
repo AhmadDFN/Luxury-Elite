@@ -61,7 +61,7 @@
 </script>
 
 <div
-    class="fixed inset-0 z-60 bg-[#050810]/95 backdrop-blur-lg overflow-y-auto py-8 px-4 sm:px-6 lg:px-8 custom-scrollbar"
+    class="fixed inset-0 z-50 bg-[#050810]/95 backdrop-blur-lg overflow-y-auto py-16 px-4 ms-10 mt-4 sm:px-6 lg:px-8 custom-scrollbar"
 >
     <div
         class="max-w-5xl mx-auto bg-[#131926]/60 border border-[#2a3249]/60 shadow-2xl rounded-2xl relative backdrop-blur-xl mt-4 mb-12"
@@ -166,15 +166,11 @@
                                     <span>Whatsapp</span>
                                 </label>
                                 <div class="relative">
-                                    <span
-                                        class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-xs font-semibold"
-                                        >+62</span
-                                    >
                                     <input
                                         type="text"
                                         bind:value={form.whatsapp}
-                                        placeholder="8123456..."
-                                        class="block w-full h-12 pl-12 pr-4 rounded-xl bg-[#181f30] border-[#2a3249] text-gray-100 focus:border-[#dca34f] focus:ring-1 focus:ring-[#dca34f] transition-all duration-200"
+                                        placeholder="+6281xxxxx"
+                                        class="block w-full h-12 px-4 rounded-xl bg-[#181f30] border-[#2a3249] text-gray-100 focus:border-[#dca34f] focus:ring-1 focus:ring-[#dca34f] transition-all duration-200"
                                     />
                                 </div>
                                 {#if form.errors.whatsapp}
@@ -422,8 +418,7 @@
                                         <input
                                             type="text"
                                             bind:value={form.to_team}
-                                            class="block w-full h-11 px-4 rounded-lg bg-[#141a29] border-[#2a3249] text-gray-500 text-sm cursor-not-allowed"
-                                            disabled
+                                            class="block w-full h-11 px-4 rounded-lg bg-[#181f30] border-[#2a3249] text-gray-200 text-sm focus:border-[#dca34f] focus:ring-0"
                                         />
                                     </div>
                                 </div>
