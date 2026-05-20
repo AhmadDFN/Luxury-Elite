@@ -6,21 +6,22 @@ use App\Models\Division;
 use App\Models\PlayerProfile;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\GameRole;
+use App\Models\VehicleSpecialization;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DummyPlayerSeeder extends Seeder
 {
     public function run(): void
     {
         $players = [
-
             /*
             |--------------------------------------------------------------------------
             | OWNER
             |--------------------------------------------------------------------------
             */
-
             [
                 'real_name' => 'Dany',
                 'nickname' => 'iRzell',
@@ -29,6 +30,8 @@ class DummyPlayerSeeder extends Seeder
                 'membership_status' => 'active',
                 'division' => 'WF Competitive',
                 'notes' => 'From Elite Esport to Luxury Elite',
+                'game_roles' => ['Assault', 'Vehicle'],
+                'vehicles' => ['Helicopter', 'MBT'],
             ],
 
             /*
@@ -36,7 +39,6 @@ class DummyPlayerSeeder extends Seeder
             | TRIAL PLAYERS
             |--------------------------------------------------------------------------
             */
-
             [
                 'real_name' => 'Rafi Alfaath Hakim',
                 'nickname' => 'KEMATIAAANNNN',
@@ -44,6 +46,8 @@ class DummyPlayerSeeder extends Seeder
                 'role' => 'player',
                 'membership_status' => 'trial',
                 'division' => 'WF Competitive',
+                'game_roles' => ['Assault', 'Vehicle'],
+                'vehicles' => ['LAV-G1', 'FSV'],
             ],
 
             [
@@ -53,6 +57,8 @@ class DummyPlayerSeeder extends Seeder
                 'role' => 'player',
                 'membership_status' => 'trial',
                 'division' => 'WF Competitive',
+                'game_roles' => ['Recon', 'Vehicle'],
+                'vehicles' => ['LAV-AA'],
             ],
 
             [
@@ -62,6 +68,8 @@ class DummyPlayerSeeder extends Seeder
                 'role' => 'player',
                 'membership_status' => 'trial',
                 'division' => 'WF Competitive',
+                'game_roles' => ['Medic', 'Engineer'],
+                // Tidak ada vehicles karena tidak mengambil role 'Vehicle'
             ],
 
             [
@@ -71,6 +79,8 @@ class DummyPlayerSeeder extends Seeder
                 'role' => 'player',
                 'membership_status' => 'trial',
                 'division' => 'WF Competitive',
+                'game_roles' => ['Assault'],
+                // Tidak ada vehicles
             ],
 
             [
@@ -80,6 +90,8 @@ class DummyPlayerSeeder extends Seeder
                 'role' => 'player',
                 'membership_status' => 'trial',
                 'division' => 'WF Competitive',
+                'game_roles' => ['Assault', 'Vehicle'],
+                'vehicles' => ['LT'],
             ],
 
             [
@@ -89,6 +101,8 @@ class DummyPlayerSeeder extends Seeder
                 'role' => 'player',
                 'membership_status' => 'trial',
                 'division' => 'WF Competitive',
+                'game_roles' => ['Recon', 'Vehicle'],
+                'vehicles' => ['Helicopter', 'Jet'],
             ],
 
             [
@@ -98,111 +112,31 @@ class DummyPlayerSeeder extends Seeder
                 'role' => 'player',
                 'membership_status' => 'trial',
                 'division' => 'WF Competitive',
+                'game_roles' => ['Engineer', 'Vehicle'],
+                'vehicles' => ['Amphibi', 'LAV-G1'],
             ],
 
-            [
-                'real_name' => 'Hani',
-                'nickname' => 'Hani',
-                'uid_game' => '45894414954707408147',
-                'role' => 'player',
-                'membership_status' => 'trial',
-                'division' => 'WF Competitive',
-            ],
-
-            [
-                'real_name' => 'fadli',
-                'nickname' => 'LeRs',
-                'uid_game' => '90009148224364351538',
-                'role' => 'player',
-                'membership_status' => 'trial',
-                'division' => 'WF Competitive',
-            ],
-
-            [
-                'real_name' => 'diki',
-                'nickname' => 'KenxTo',
-                'uid_game' => '36956265165826651239',
-                'role' => 'player',
-                'membership_status' => 'trial',
-                'division' => 'WF Competitive',
-            ],
-
-            [
-                'real_name' => 'Apis',
-                'nickname' => 'Forseze79',
-                'uid_game' => '45450679633228757470',
-                'role' => 'player',
-                'membership_status' => 'trial',
-                'division' => 'WF Competitive',
-            ],
-
-            [
-                'real_name' => 'Fik',
-                'nickname' => 'TXDNR | JAYZ',
-                'uid_game' => '36793790758866345883',
-                'role' => 'player',
-                'membership_status' => 'trial',
-                'division' => 'WF Competitive',
-            ],
-
-            [
-                'real_name' => 'Junior',
-                'nickname' => 'MAD | HutaooWi',
-                'uid_game' => '27905323142996614475',
-                'role' => 'player',
-                'membership_status' => 'trial',
-                'division' => 'WF Competitive',
-            ],
-
-            [
-                'real_name' => 'Iyan',
-                'nickname' => 'YoonahGOPUBLIK',
-                'uid_game' => '81325621393692650756',
-                'role' => 'player',
-                'membership_status' => 'trial',
-                'division' => 'WF Competitive',
-            ],
-
-            [
-                'real_name' => 'afgan rangguci',
-                'nickname' => 'F7 | Zyanno SEALVZ',
-                'uid_game' => '182008142540938994879',
-                'role' => 'player',
-                'membership_status' => 'trial',
-                'division' => 'WF Competitive',
-            ],
-
-            [
-                'real_name' => 'ABID KHALIS BIN JUZAILI',
-                'nickname' => 'FuZ1Hiroo',
-                'uid_game' => '18809319972673724069',
-                'role' => 'player',
-                'membership_status' => 'trial',
-                'division' => 'WF Competitive',
-            ],
-
+            // Lanjutkan format ini untuk player lainnya jika ada
         ];
 
         foreach ($players as $player) {
 
+            // 1. Create Base User
             $email = strtolower(
                 preg_replace('/[^a-zA-Z0-9]/', '', $player['nickname'])
             ) . '@luxuryelite.gg';
 
             $user = User::updateOrCreate(
-                [
-                    'email' => $email,
-                ],
+                ['email' => $email],
                 [
                     'name' => $player['nickname'],
                     'password' => Hash::make('password'),
                 ]
             );
 
-            PlayerProfile::updateOrCreate(
-                [
-                    'user_id' => $user->id,
-                ],
+            // 2. Create Player Profile
+            $profile = PlayerProfile::updateOrCreate(
+                ['user_id' => $user->id],
                 [
                     'real_name' => $player['real_name'],
                     'nickname' => $player['nickname'],
@@ -211,18 +145,11 @@ class DummyPlayerSeeder extends Seeder
                 ]
             );
 
-            $division = Division::where(
-                'name',
-                $player['division']
-            )->first();
-
-            $role = Role::where(
-                'slug',
-                $player['role']
-            )->first();
+            // 3. Attach Division & System Role
+            $division = Division::where('name', $player['division'])->first();
+            $role = Role::where('slug', $player['role'])->first();
 
             if ($division && $role) {
-
                 $user->divisions()->syncWithoutDetaching([
                     $division->id => [
                         'role_id' => $role->id,
@@ -230,6 +157,35 @@ class DummyPlayerSeeder extends Seeder
                         'joined_at' => now(),
                     ]
                 ]);
+            }
+
+            // 4. Attach Game Roles
+            // Karena tabel master sudah di-seed, kita cukup menggunakan where->first()
+            if (isset($player['game_roles'])) {
+                $gameRoleIds = [];
+                foreach ($player['game_roles'] as $grName) {
+                    // Gunakan firstOrCreate untuk safety, siapa tahu seedermu sebelumnya terlewat
+                    $gr = GameRole::firstOrCreate(
+                        ['name' => $grName],
+                        ['slug' => Str::slug($grName)]
+                    );
+                    $gameRoleIds[] = $gr->id;
+                }
+                $profile->gameRoles()->syncWithoutDetaching($gameRoleIds);
+            }
+
+            // 5. Attach Vehicle Specializations
+            // Validasi manual: Hanya attach vehicle jika user punya role 'Vehicle'
+            if (isset($player['vehicles']) && in_array('Vehicle', $player['game_roles'])) {
+                $vehicleIds = [];
+                foreach ($player['vehicles'] as $vName) {
+                    $vs = VehicleSpecialization::firstOrCreate(
+                        ['name' => $vName],
+                        ['slug' => Str::slug($vName)]
+                    );
+                    $vehicleIds[] = $vs->id;
+                }
+                $profile->vehicleSpecializations()->syncWithoutDetaching($vehicleIds);
             }
         }
     }

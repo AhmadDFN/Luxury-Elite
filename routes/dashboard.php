@@ -1,38 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\PlayerController;
+use App\Http\Controllers\Dashboard\DivisionController; // Contoh nanti
 
-Route::middleware(['auth'])
+Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
-    ->name('dashboard.')
+    // Hapus ->name('dashboard.') agar tidak jadi dashboard.index
+    // Kita buat group agar route-nya tetap bersih
     ->group(function () {
 
+        // Ubah name menjadi 'dashboard' agar cocok dengan import Sidebar
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+        // Untuk resource, dia akan otomatis membuat dashboard.players.index, dsb
         Route::resource('players', PlayerController::class);
+
+        // 3. Persiapan untuk fitur masa depan (Tinggal buat controllernya)
+        // Route::resource('divisions', DivisionController::class);
+        // Route::resource('scrims', ScrimController::class);
+        // Route::resource('vods', VodController::class);
+        // Route::resource('news', NewsController::class);
     });
-
-Route::get('/test-player', function () {
-
-    $data = [
-
-        'real_name' => 'Test Player',
-
-        'nickname' => 'LXTest',
-
-        'email' => 'testplayer@luxuryelite.gg',
-
-        'password' => 'password123',
-
-        'uid_game' => '123456789',
-
-        'division_id' => 1,
-
-        'role_id' => 5,
-
-    ];
-
-    app(\App\Actions\Player\CreatePlayerAction::class)
-        ->handle($data);
-
-    return 'Player Created';
-});

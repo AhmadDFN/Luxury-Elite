@@ -21,9 +21,11 @@ class PlayerProfile extends Model
 
     public function gameRoles()
     {
-        return $this->belongsToMany(
-            GameRole::class,
-            'player_game_roles'
-        );
+        return $this->belongsToMany(GameRole::class, 'player_game_roles', 'player_profile_id', 'game_role_id');
+    }
+
+    public function vehicleSpecializations()
+    {
+        return $this->belongsToMany(VehicleSpecialization::class, 'player_vehicle_specializations', 'player_profile_id', 'vehicle_specialization_id');
     }
 }

@@ -5,16 +5,84 @@
     import { onMount } from 'svelte';
     import Navbar from '@/components/layout/Navbar.svelte';
     import PlayerCard from '@/components/roster/PlayerCard.svelte';
-    // import { Button } from '@/components/ui/button';
 
     let { canRegister = true } = $props();
     const auth = $derived(page.props.auth);
 
-    // State untuk memicu animasi saat halaman dimuat
     let visible = $state(false);
     onMount(() => {
         visible = true;
     });
+
+    // 1. Data Roster Dinamis (Bisa kamu passing dari Props/API)
+    // Coba hapus/tambah player di bawah ini untuk melihat keajaiban grid-nya!
+    const players = [
+        {
+            nickname: 'iRzell`LX',
+            role: 'Assault',
+            image: '/images/irzell.png',
+            status: 'Active',
+        },
+        {
+            nickname: 'SHADOW',
+            role: 'Recon',
+            image: '/images/irzell.png',
+            status: 'Active',
+        },
+        {
+            nickname: 'REAPER',
+            role: 'Medic',
+            image: '/images/irzell.png',
+            status: 'Trial',
+        },
+        {
+            nickname: 'GHOST',
+            role: 'Vehicle',
+            image: '/images/irzell.png',
+            status: 'Active',
+        },
+        {
+            nickname: 'VIPER',
+            role: 'Support',
+            image: '/images/irzell.png',
+            status: 'Active',
+        },
+        {
+            nickname: 'BLAZE',
+            role: 'Assault',
+            image: '/images/irzell.png',
+            status: 'Trial',
+        },
+        {
+            nickname: 'STORM',
+            role: 'Recon',
+            image: '/images/irzell.png',
+            status: 'Active',
+        },
+    ];
+
+    // 2. Fungsi Logika Kalkulasi Grid
+    function getGridSpanClass(index: number, total: number) {
+        // Default: Mobile full (1 col), Tablet setengah (3/6), Desktop sepertiga (2/6)
+        let spanClasses = 'col-span-1 md:col-span-3 lg:col-span-2';
+
+        // Logika Tablet (MD): Jika sisa 1 (ganjil), item terakhir ambil full space (6/6)
+        if (total % 2 !== 0 && index === total - 1) {
+            spanClasses = spanClasses.replace('md:col-span-3', 'md:col-span-6');
+        }
+
+        // Logika Desktop (LG):
+        const rem = total % 3;
+        if (rem === 1 && index === total - 1) {
+            // Sisa 1: Item terakhir ambil full (6/6 kolom)
+            spanClasses = spanClasses.replace('lg:col-span-2', 'lg:col-span-6');
+        } else if (rem === 2 && index >= total - 2) {
+            // Sisa 2: Dua item terakhir ambil setengah-setengah (3/6 kolom)
+            spanClasses = spanClasses.replace('lg:col-span-2', 'lg:col-span-3');
+        }
+
+        return spanClasses;
+    }
 </script>
 
 <AppHead title="Luxury Elite - Official Website">
@@ -76,7 +144,7 @@
                             // Tactical Delta Force
                         </h2>
                         <h1
-                            class="text-5xl md:text-8xl font-black leading-none tracking-tighter"
+                            class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-8xl font-black leading-none tracking-tighter break-words"
                         >
                             WELCOME TO <br />
                             <span class="gold-shimmer italic">LUXURY ELITE</span
@@ -86,7 +154,7 @@
 
                     <p
                         in:fly={{ x: 30, duration: 1000, delay: 600 }}
-                        class="text-lg md:text-xl text-gray-400 font-light max-w-xl leading-relaxed border-l-2 border-cyan-500 pl-6"
+                        class="text-base md:text-lg xl:text-xl text-gray-400 font-light max-w-xl leading-relaxed border-l-2 border-cyan-500 pl-4 sm:pl-6"
                     >
                         Uniting <span class="text-white font-medium"
                             >Ultimate Skill</span
@@ -146,68 +214,32 @@
             </h2>
         </div>
 
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-20"
-        >
-            <div class="opacity-0 animate-[fadeInUp_0.5s_ease_forwards_0.1s]">
-                <PlayerCard
-                    nickname="iRzell`LX"
-                    role="Assault"
-                    image="/images/irzell.png"
-                    status="Active"
-                />
-            </div>
-
-            <div class="opacity-0 animate-[fadeInUp_0.5s_ease_forwards_0.3s]">
-                <PlayerCard
-                    nickname="SHADOW"
-                    role="Recon"
-                    image="/images/irzell.png"
-                    status="Active"
-                />
-            </div>
-
-            <div class="opacity-0 animate-[fadeInUp_0.5s_ease_forwards_0.5s]">
-                <PlayerCard
-                    nickname="REAPER"
-                    role="Medic"
-                    image="/images/irzell.png"
-                    status="Trial"
-                />
-            </div>
-        </div>
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-20"
-        >
-            <div class="opacity-0 animate-[fadeInUp_0.5s_ease_forwards_0.1s]">
-                <PlayerCard
-                    nickname="iRzell`LX"
-                    role="Assault"
-                    image="/images/irzell.png"
-                    status="Active"
-                />
-            </div>
-
-            <div class="opacity-0 animate-[fadeInUp_0.5s_ease_forwards_0.3s]">
-                <PlayerCard
-                    nickname="SHADOW"
-                    role="Recon"
-                    image="/images/irzell.png"
-                    status="Active"
-                />
-            </div>
-
-            <div class="opacity-0 animate-[fadeInUp_0.5s_ease_forwards_0.5s]">
-                <PlayerCard
-                    nickname="REAPER"
-                    role="Medic"
-                    image="/images/irzell.png"
-                    status="Trial"
-                />
-            </div>
+        <!-- 
+          Base grid diubah menjadi 6 kolom untuk menampung fraksi matematika yang fleksibel. 
+          grid-cols-1 (Mobile), md:grid-cols-6 (Tablet/Desktop)
+        -->
+        <div class="grid grid-cols-1 md:grid-cols-6 gap-x-8 gap-y-12 mb-20">
+            {#each players as player, i}
+                <div
+                    class="opacity-0 animate-[fadeInUp_0.5s_ease_forwards] flex justify-center w-full {getGridSpanClass(
+                        i,
+                        players.length,
+                    )}"
+                    style="animation-delay: {0.1 + i * 0.15}s;"
+                >
+                    <!-- Wrapper max-w-md untuk menjaga aspect ratio gambar agar tidak menjadi raksasa saat span 1 halaman penuh -->
+                    <div class="w-full max-w-md transition-all duration-500">
+                        <PlayerCard
+                            nickname={player.nickname}
+                            role={player.role}
+                            image={player.image}
+                            status={player.status}
+                        />
+                    </div>
+                </div>
+            {/each}
         </div>
     </section>
-
     <style>
         @keyframes fadeInUp {
             from {

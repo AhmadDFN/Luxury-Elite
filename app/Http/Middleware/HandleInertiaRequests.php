@@ -35,13 +35,26 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return [
-            ...parent::share($request),
-            'name' => config('app.name'),
+        $user = $request->user();
+
+        return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user ? [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                ] : null,
+                // Expose helper permissions untuk dipakai di Svelte
+                'permissions' => $user ? [
+                    'isOwner' => $user->isOwner(),
+                    'isAdmin' => $user->isAdmin(),
+                    'isCoach' => $user->isCoach(),
+                ] : null,
             ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-        ];
+            'flash' => [
+                'message' => fn() => $request->session()->get('message'),
+                'error' => fn() => $request->session()->get('error'),
+            ],
+        ]);
     }
 }

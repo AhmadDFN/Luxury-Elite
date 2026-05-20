@@ -4,14 +4,15 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 // use Database\Factories\UserFactory;
+use App\Models\Division;
+use App\Models\DivisionMember;
+use App\Models\PlayerTransferHistory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use App\Models\DivisionMember;
-use App\Models\Division;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
@@ -88,5 +89,10 @@ class User extends Authenticatable
     public function divisionMemberships()
     {
         return $this->hasMany(DivisionMember::class);
+    }
+
+    public function transferHistories()
+    {
+        return $this->hasMany(PlayerTransferHistory::class, 'user_id');
     }
 }
