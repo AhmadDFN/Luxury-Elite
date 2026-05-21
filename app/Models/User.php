@@ -6,6 +6,7 @@ namespace App\Models;
 // use Database\Factories\UserFactory;
 use App\Models\Division;
 use App\Models\DivisionMember;
+use App\Models\PlayerProfile;
 use App\Models\PlayerTransferHistory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -76,14 +77,10 @@ class User extends Authenticatable
 
     public function divisions()
     {
-        return $this->belongsToMany(
-            Division::class,
-            'division_members'
-        )->withPivot([
-            'role_id',
-            'membership_status',
-            'joined_at'
-        ])->withTimestamps();
+        // Sesuaikan dengan nama tabel pivot kamu, misalnya 'division_members'
+        // Jika belum ada, kamu bisa sesuaikan nanti, tapi fungsi ini harus ada agar tidak error
+        return $this->belongsToMany(Division::class, 'division_members', 'user_id', 'division_id')
+            ->withPivot('membership_status', 'joined_at');
     }
 
     public function divisionMemberships()
@@ -94,5 +91,11 @@ class User extends Authenticatable
     public function transferHistories()
     {
         return $this->hasMany(PlayerTransferHistory::class, 'user_id');
+    }
+
+    public function playerProfile()
+    {
+        // Asumsi foreign key di tabel player_profiles adalah 'user_id'
+        return $this->hasOne(PlayerProfile::class, 'user_id');
     }
 }

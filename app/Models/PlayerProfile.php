@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlayerProfile extends Model
 {
+
     protected $fillable = [
         'user_id',
         'real_name',
         'nickname',
         'uid_game',
-        'roster_visibility',
+        'whatsapp',
+        'bio',
+        'photo',
+        'stats_photo'
     ];
 
     public function user()

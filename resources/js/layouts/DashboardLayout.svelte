@@ -1,6 +1,8 @@
 <script lang="ts">
     import { Link, page } from '@inertiajs/svelte';
     import { fade, fly } from 'svelte/transition';
+    import { Toaster } from 'svelte-sonner';
+    import Notification from '@/components/Notification.svelte';
 
     export let title: string = 'Dashboard';
     export let user: any = null;
@@ -362,6 +364,9 @@
         </main>
     </div>
 </div>
+
+<Notification />
+<Toaster position="top-right" richColors theme="dark" />
 
 <style>
     /* Styling scrollbar agar lebih estetis dan tidak merusak tema gelap */
